@@ -18,22 +18,19 @@ public record JSONResponse<T>(int code, T data, String message) {
         return new ObjectMapper().writeValueAsString(this);
     }
 
-    public static <T> JSONResponse<T> fail(T data) {
-        return new JSONResponse<>(200, data, "请求失败");
-    }
-
-    public static <T> JSONResponse<T> fail(
-        int code,
-        String message
-    ) {
+    public static <T> JSONResponse<T> fail(int code, String message) {
         return new JSONResponse<>(code, null, message);
     }
 
+    public static <T> JSONResponse<T> fail(int code) {
+        return fail(code, "出错了");
+    }
+
     public static <T> JSONResponse<T> fail(String message) {
-        return fail(0,  message);
+        return fail(0, message);
     }
 
     public static <T> JSONResponse<T> fail() {
-        return fail(0,  null);
+        return fail(0, "出错了");
     }
 }
